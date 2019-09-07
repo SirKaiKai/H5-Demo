@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>倒计时</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<span id="id1"></span><span id="id2"></span>
+<script>
+
+</script>
+<script>
+    function countDown(maxtime, fn) {
+        var timer = setInterval(function () {
+            if (maxtime >= 0) {
+                hours = Math.floor(maxtime / 3600);
+                minutes = Math.floor(maxtime / 60 % 60);
+                seconds = Math.floor(maxtime % 60);
+                msg = hours + "小时" + minutes + "分" + seconds + "秒";
+                fn(msg)
+                --maxtime;
+            }
+            else {
+                clearInterval(timer);
+                fn("时间到，结束!");
+            }
+        }, 1000);
+    }
+    var startTime = "2019-09-07 15:40:00";  //开始时间
+    var endTime = "2019-09-07 16:00:00";  //结束时间
+    var nowTime = new Date()
+    var date1 = new Date(startTime.replace(/-/g, '/')).getTime() - new Date(nowTime).getTime()
+    var sjc1 = date1 / 1000
+    var date2 = new Date(endTime.replace(/-/g, '/')).getTime() - new Date(nowTime).getTime()
+    var sjc2 = date2 / 1000
+    if (date1 > 0) {
+        countDown(sjc1, function (msg) {
+            document.getElementById('id1').innerText = "距开始";
+            document.getElementById('id2').innerHTML = msg;
+        });
+    } else {
+        countDown(sjc2, function (msg) {
+            document.getElementById('id1').innerText = "距结束";
+            document.getElementById('id2').innerHTML = msg;
+        });
+    }
+</script>
+
+</body>
+</html>
