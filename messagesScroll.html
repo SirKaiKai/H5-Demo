@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <title>消息滚动</title>
+</head>
+<style>
+    * {
+        /*去掉所有标签的marign和padding的值*/
+        margin: 0px;
+        padding: 0px;
+    }
+
+    #title {
+        height: 60px;
+        overflow: hidden; /*隐藏超出部分这样才可以滚动*/
+        font-size: 30px;
+        line-height: 60px;
+        padding-left: 30px;
+        background-color: crimson;
+        border: 1px solid #f05e6f;
+        border-radius: 8px 8px 0 0;
+        -moz-border-radius: 8px 8px 0 0; /* 提高火狐浏览器兼容 */
+        -webkit-border-radius: 8px 8px 0 0; /* 提高谷歌浏览器兼容 */
+        color: #fff;
+        position: relative;
+    }
+
+    #title a {
+        position: absolute;
+        right: 10px;
+        bottom: -15px;
+        display: inline;
+        font-size: 15px;
+        color: #fff;
+    }
+
+    #title a:hover {
+        color: black;
+        position: absolute;
+        right: 8px;
+        bottom: -16px;
+    }
+
+    a {
+        font-size: 19px;
+        text-decoration: none; /*去除下划线*/
+        color: #000;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    #bigBox {
+        position：relation;
+        height: 30px;
+        right: -230px;
+        top: 0px;
+        width: 400px;
+        border: 5px solid #ababab;
+        border-radius: 15px;
+        overflow: hidden;
+        margin: 100px auto;
+        box-shadow: 2px 2px 10px #ababab; /*设定阴影*/
+        text-align: left;
+    }
+
+    #mScrollBox {
+        height: 30px;
+        width: 500px;
+        margin-left: 25px;
+        margin-top: 10px;
+        overflow: hidden;
+    }
+
+    #bigBox ul li {
+        height: 24px;
+    }
+
+    #bigBox ul li a {
+        width: 250px;
+        float: left;
+        display: block;
+        overflow: hidden;
+        text-indent: 15px;
+        height: 24px;
+    }
+
+    /*2*/
+    .ul2 {
+        list-style-type: none;
+        border: 1px solid darkgreen;
+        height: 30px;
+        width: 200px;
+        text-align: center;
+        overflow: hidden;
+        border-radius: 10px;
+        /*text-indent: 15px;*/
+        box-shadow: 2px 2px 10px #ababab;
+        background: tan;
+    }
+
+    .ul2 li {
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .ul2 li:hover {
+        color: red;
+    }
+</style>
+<body>
+<!--两种不同的消息滚动-->
+<!--1-->
+<div id="bigBox">
+    <div id="mScrollBox">
+        <ul id="con1">
+            <li><a href="#">1. 1111111</a></li>
+            <li><a href="#">2. 2222222222</a></li>
+            <li><a href="#">3. 3333333333333 </a></li>
+            <li><a href="#">4. 44444444444 </a></li>
+            <li><a href="#">5. 555555555555</a></li>
+            <li><a href="#">6. 6666666666</a></li>
+            <li><a href="#">7. 77777777777</a></li>
+            <li><a href="#">8. 8888888888</a></li>
+            <li><a href="#">9. 9999999999</a></li>
+        </ul>
+        <ul id="con2"></ul>
+    </div>
+</div>
+<!--2-->
+<ul class="ul2">
+    <li>1111111111111</li>
+    <li>22222222222</li>
+    <li>33333333333333</li>
+    <li>4444444444444</li>
+    <li>5555555555</li>
+    <li>66666666666</li>
+    <li>77777777777</li>
+    <li>888888888888</li>
+    <li>999999999999</li>
+    <li>0.0.0.0.0.00</li>
+</ul>
+</body>
+</html>
+<script type="text/javascript">
+    var areaBox = document.getElementById('mScrollBox');
+    var mCon1 = document.getElementById('con1');
+    var mCon2 = document.getElementById('con2');
+    //将mCon1的内容完全复制给mCon2，这样当mCon1完全滚动出区域时mCon2将无缝衔接
+    mCon2.innerHTML = mCon1.innerHTML;
+    function scrollUp() {
+        //判断是否mCon1已经滚动出区域
+        if (areaBox.scrollTop >= mCon1.offsetHeight) {
+            //已经滚动出时重置滚动区域高度
+            areaBox.scrollTop = 0;
+        } else {
+            //未滚动出时滚动区域高度自增
+            areaBox.scrollTop++;
+        }
+    }
+    //设定滚动速度
+    var mSpeed = 100;
+    var mScroll = setInterval('scrollUp()', mSpeed);
+    areaBox.onmouseover = function () {
+        clearInterval(mScroll);
+    }
+    areaBox.onmouseout = function () {
+        mScroll = setInterval('scrollUp()', mSpeed);
+    }
+
+</script>
+<script>
+    setInterval(function(){
+        $('.ul2').children().first().clone(true).appendTo('.ul2');
+        $('.ul2>:first').remove();
+    },2000);
+</script>
