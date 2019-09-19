@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>根据网址操作</title>
+</head>
+<body>
+1、设置或获取整个URL为字符串
+var test = window.location.href
+返回：http://i.cnblogs.com/EditPosts.aspx?opt=1
+
+2、设置或获取URL的协议部分
+var test = window.location.protocol
+返回：http:
+
+3、设置或获取URL的主机部分
+var test = window.location.host
+返回：i.cnglogs.com
+
+4、设置或获取与URL关联的端口号码
+var test = window.location.port
+返回：空字符串(如果采用默认的80端口(update:即使添加了 :80),那么返回值并不是默认的80而是空字符)
+
+5、设置或获取与URL的路径部分(就是文件地址)
+var test = window.location.pathname
+返回：/EditPosts.aspx
+
+6、设置或获取href属性中跟在问号后面的部分
+var test = window.location.search
+返回：?opt=1
+PS：获得查询（参数）部分，除了给动态语言赋值以外，我们同样可以给静态页面，并使用js来获得相应的参数值
+
+7、设置或获取 href 属性中在井号 “#” 后面的分段
+var test = window.location.hash
+返回：空字符（因为url中没有）
+
+8、自动跳转网址
+location="网址"
+
+9、网址添加后缀
+var lj = $("a链接").attr("href")
+$("a链接").attr("href",lj + "后缀名如：?top1")
+
+
+</body>
+</html>
