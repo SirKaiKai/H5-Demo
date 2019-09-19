@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <title>弹出框，选择框</title>
+</head>
+<style>
+    .tck{position: relative;z-index: 2;  display: none;}
+    .tckBg{position: fixed;width: 100%;height: 100%;left:0;top:0;z-index: 1;background: rgba(0,0,0,0.5)}
+    .tckCont{position: fixed;z-index: 2;background: white;top: 50%;left: 50%;transform: translate(-50%,-50%);width: 90%;height: 200px;}
+</style>
+<body>
+<select>
+    <option value ="volvo1">Volvo</option>
+    <option value ="saab2">Saab</option>
+    <option value="opel3">Opel</option>
+    <option value="audi4">Audi</option>
+</select>
+<button>我要一个弹出框</button>
+<!--弹出框-->
+<div class="tck">
+    <div class="tckCont"></div>
+    <div class="tckBg"></div>
+</div>
+</body>
+</html>
+<script>
+   //jquery设置索引值为1的项为当前选中项
+//    $("select ").get(0).selectedIndex=1;
+
+    //jquery设置value值2的项为当前选中项
+//    $("select").val("opel3");
+   
+
+   //jquery删除select下拉框的最后一个option
+//    $("select option:last").remove();
+
+
+    $("select").change(function () {
+        console.log($(this).find("option:selected").text()) //获取select的text值
+        console.log($(this).val()) //获取select的text值
+        console.log($(this).get(0).selectedIndex) //获取select的text值
+    })
+
+    $("button").click(function () {
+        $(".tck").fadeIn()
+    })
+    $(".tckBg").click(function () {
+        $(".tck").fadeOut()
+    })
+
+</script>

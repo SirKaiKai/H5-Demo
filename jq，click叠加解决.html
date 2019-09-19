@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <title>jq,click事件叠加</title>
+</head>
+<style>
+    .ul{display: none}
+</style>
+<body>
+<button class="btn1">第一个按钮</button>
+<button class="btn2">第二个按钮</button>
+<ul class="ul">
+    <li>我是1</li>
+    <li>我是2</li>
+    <li>我是3</li>
+    <li>我是4</li>
+</ul>
+<h4>像这种click事件中包含click事件，就会出现click事件叠加现象，那么只需在点击前清除一次点击事件，防止点击事件执行次数越来越多出现bug，</h4>
+</body>
+</html>
+<script>
+    $(".btn1").click(function () {
+        click(".btn1")
+    })
+    $(".btn2").click(function () {
+        click(".btn2")
+    })
+    function click(classs) {
+        $(".ul").show()
+        $(".ul li").unbind("click") //点击前清除一次点击事件，防止点击事件执行次数越来越多出现bug，
+        $(".ul li").click(function () {
+            $(classs).text($(this).text())
+            $(".ul").hide()
+        })
+    }
+</script>
