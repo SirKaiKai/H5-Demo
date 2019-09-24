@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>伪类</title>
+</head>
+<style>
+    .pseudoOne{width: 60px;height: 30px;background: darkgoldenrod;position: relative;margin: 0 auto}
+    .pseudoOne::before{content: "";position: absolute;  left:-30px;top: 0;width: 0;height: 0;border-top: 15px solid transparent;border-right: 30px solid #FFD9E0;border-bottom: 15px solid transparent;}
+
+    .yhq{width: 200px;height: 80px;background: darkred;position: relative;margin: 20px auto;}
+    .yhq::before{content: "";position: absolute;top:0px;left:-4px;border-left: 8px dotted white;height:100%;}
+    .yhq::after{content: "";position: absolute;top:0;right:-4px;border-left: 8px dotted white;height:100%;}
+
+    .text{position: relative;line-height: 2;display: inline-block;margin: 20px auto;}
+    .text::before{content: "";position: absolute;left:calc(50% - 15px);bottom: 0;width: 30px;height:2px;background: darkgoldenrod;}
+
+
+
+</style>
+<body>
+<div class="pseudoOne"></div>
+<div class="yhq"></div>
+<div class="text">这是伪类啊</div>
+
+<!--有事暂停，以后续写-->
+
+
+</body>
+</html>
