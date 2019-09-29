@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>for循环Tab切换</title>
+    <script src="./js/vue.js"></script>
+</head>
+<style>
+    .active{color: red;}
+    p{display: inline-block;width: 33%;background: wheat;margin: 0;text-align: center;}
+</style>
+<body>
+<div id="app">
+    <div v-for="(a,index) in sz">
+        <p  @click="click($event,a.id,index)" v-for="(b,index2) in a.tab" :data="index2" :class="b.typess?'active':''">{{b.name}}</p>
+        <h3>这是列表数据,把列表数据放在tab下面</h3>
+    </div>
+
+</div>
+</body>
+</html>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+//            先定义一个tab数组，里面先设置一个初始tab，根据外层循环长度，再push
+            sz:[{tab:[{name:"开始",typess:false},{name:"结束",typess:false},{name:"全部",typess:false}]}],
+        },
+        mounted:function () {
+            console.log(this.sz)
+//            判断外层循环的个数，即需要几个tab，设外层循环有length ，push进length-1个，因为开始自定义的初始有一个
+            for(var a=0;a<3;a++){
+                this.sz.push({tab:[{name:"开始",typess:false},{name:"结束",typess:false},{name:"全部",typess:false}]})
+            }
+        },
+        methods:{
+            click:function (e,id,index,index2) {
+                var xb1 = index;  //外层下标
+                var xb2 = e.target.getAttribute('data')  //tab下标
+                var length = this.sz.length;  //外层的长度，暂时没用到
+                var length2 = this.sz[xb1].tab.length;  //tab长度
+
+//                把点击的外层即点击的第几个tab，把当前tab里面的开始、结束、全部的typess全部设置为false，循环设置
+               for(var a=0;a<length2;a++){
+                    this.sz[xb1].tab[a].typess = false
+               }
+//               把点击的外层即点击的第几个tab，根据tab下标，把点击当前tab的下标的字段设置为true
+                this.sz[xb1].tab[xb2].typess = true
+            }
+        }
+    })
+</script>
