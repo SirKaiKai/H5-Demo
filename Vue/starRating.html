@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/vue.js"></script>
+    <title>简易星级评分Demo</title>
+</head>
+<style>
+    i{width: 10px;  height:10px;display: inline-block;margin-right: 10px}
+    .bright{background: red}
+    .dark{background: black}
+</style>
+<body>
+<p class="col-12 c-fl c-mt-24 c-container" id="videoDetail">
+    <span class="c-block c-fl c-mr-24">星级评价</span>
+    <span class="star c-fl col-8 c-h40 c-lh40 size40">
+         <!--star默认值为5 即5颗星 starArr为array类型 格式如[0, 1, 2, 3, 4]  动态绑定class用于控制星星是否点亮状态 点击事件用于更新starArr数组数据-->
+         <i v-for="(item, index) in star" class="c-inline c-v c-pr-12 iconfont" :class="starArr.indexOf(index) > -1 ? 'bright':'dark'"  @click="changeStar(index)"></i>
+       </span>
+</p>
+</body>
+</html>
+<script>
+    var app  = new Vue({
+        el: '#videoDetail',
+        data: {
+            star: 5,
+            starArr: [] // 存储格式[0, 1, 2, 3, 4]
+        },
+        methods: {
+            changeStar: function (index) {
+                app.starArr = []
+                for (var i = 0; i <= index; i++) {
+                    app.starArr.push(i)
+                }
+            }
+        }
+    })
+</script>
