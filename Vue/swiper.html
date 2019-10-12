@@ -66,9 +66,9 @@
         } ,
         methods: {
             sliderMove:function(obj){
-                var nowIndex=obj.target.attributes[1].value;
-                this.Iindex=nowIndex;
-                this.isMove=true;
+//                var nowIndex=obj.target.attributes[1].value;
+//                this.Iindex=nowIndex;
+//                this.isMove=true;
             },
             sliderOut:function(obj){
                 this.isMove=false;
@@ -87,9 +87,10 @@
                     if(that.Iindex==length-1){
                         that.Iindex=0;
                     }else{
-                        that.Iindex=parseInt(that.Iindex)+1;
+                        that.Iindex=(that.Iindex)+1;
                     }
                 }
+                console.log(that.Iindex)
             },3000);
         }
     })

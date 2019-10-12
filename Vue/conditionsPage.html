@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>条件渲染</title>
+    <script src="js/vue.js"></script>
+    <!--引入公共样式，去除一些自带样式-->
+    <link rel="stylesheet" href="../CSS/commonStyle.css">
+</head>
+<style>
+    .mb20{margin-bottom: 20px;}
+    .tabUl{display: flex;}
+    .tabUl li{flex: 1;text-align: center;line-height: 40px}
+    .active{background: darkgoldenrod;}
+    .hide{display: none}
+    .block{display: block}
+    a{color: red}
+    .classA{color: cornflowerblue;}
+    .classB{font-size: 16px}
+</style>
+<body>
+<div id="App">
+    <div v-if="Vif" class="mb20">测试文本v-if</div>
+    <div v-else class="mb20">测试文本v-else</div>
+    <ul class="tabUl" @click="tabClick($event)">
+        <li data-current="0" :class="tabActive == 0 ? 'active':''">左切换</li>
+        <li data-current="1" :class="tabActive == 1 ? 'active':''">右切换</li>
+    </ul>
+    <div class="tabBox mb20">
+        <div :class="tabActive == 0 ? 'block':'hide'">
+            左切换内容
+        </div>
+        <div :class="tabActive == 1 ? 'block':'hide'">
+            右切换内容
+        </div>
+    </div>
+    <div v-show="Vshow" class="mb20">测试v-show,样式style的隐藏显示</div>
+    <ul class="mb20">
+        <h4>for循环，可以利用下标控制循环渲染的个数</h4>
+        <li v-for="(item,index) in forList" v-if="index < 3">{{index+1}}、我是{{item.name}},今年{{item.age}}岁</li>
+    </ul>
+    <div class="mb20">
+        <h4>事件传参</h4>
+        <button @click="Say('water')">water</button>
+        <button @click="Say('fire')">fire</button>
+    </div>
+    <div class="mb20">
+        <h3>提交事件不再重载页面</h3>
+        <form v-on:submit.prevent>
+            <button type="submit">提交完成</button>
+        </form>
+        <p class="mb20"></p>
+        <h3>v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击。</h3>
+        <a href="http://www.baidu.com" v-on:click.prevent.self>我要去百度</a>
+        <p class="mb20"></p>
+        <h3>点击事件将只会触发一次 </h3>
+        <button v-on:click.once="Say('只能点击一次')">只能点击一次</button>
+        <p class="mb20"></p>
+        <h3>键盘事件：enter、tab、delete (捕获“删除”和“退格”键)、esc、space、up、down、left、right</h3>
+        <input v-on:keyup.13="Say('13')"  v-on:keyup.tab="Say('tab')"  v-on:keyup.delete="Say('delete')"  v-on:keyup.esc="Say('esc')"  v-on:keyup.up="Say('up')" placeholder="键盘按键点击">
+        <p class="mb20"></p>
+    </div>
+    <div class="mb20">
+        <p>复选框布尔值</p>
+        <input type="checkbox" id="checkbox" v-model="checkoutType">
+        <label for="checkbox">{{checkoutType}}</label>
+        <h1 class="mb20"></h1>
+        <p>多选绑定一个数组</p>
+        <input type="checkbox" id="1" value="张三" v-model="web_Names">
+        <label for="1">张三</label>
+        <input type="checkbox" id="2" value="李四" v-model="web_Names">
+        <label for="2">李四</label>
+        <input type="checkbox" id="3" value="王二" v-model="web_Names">
+        <label for="3">王二</label>
+        <p><span v-for="item in web_Names">{{item}}</span></p>
+        <h1 class="mb20"></h1>
+        <p>单选按钮绑定数据</p>
+        <input type="radio" id="one" value="男" v-model="sex">
+        <label for="one">男</label>
+        <input type="radio" id="two" value="女" v-model="sex">
+        <label for="two">女</label>
+        <p>{{sex}}</p>
+
+    </div>
+    <div class="mb20">
+        <p>v-bind动态绑定标签上的属性(元素)</p>
+        <p><img :src="imgSrc" :alt="msg1"></p>
+        <a :href="url" target="_blank">链接到百度</a>
+        <p :class="className">1.绑定css</p>
+        <p :class="{classA:isOk}">2.绑定css中的判断</p>
+        <input type="checkbox" id="bind" v-model="isOk">
+        <label for="bind">isOk: {{isOk}}</label>
+        <p :class="[classA, classB]">3.绑定css数组</p>
+        <p :class="isOk?classA:classB">4.绑定css三元运算符</p>
+        <p :style="{color: red, fontSize: font}">5.绑定style</p>
+        <p :style="styleObject">6.对象绑定style</p>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var App = new Vue({
+        el:"#App",
+        data:{
+            Vif:false,
+            Vshow:false,
+            tabActive:0,
+            forList:[
+                {name:"张三",age:"18"},
+                {name:"李四",age:"20"},
+                {name:"王二",age:"24"},
+                {name:"麻子",age:"30"},
+            ],
+            checkoutType:false, //复选框布尔值
+            web_Names:[],
+            sex:"",
+            imgSrc:'https://www.ixiaochengxu.cc/resource/douyinImg/shop/seckillIndex.png',
+            url: 'http://www.baidu.com',
+            className: 'classA',
+            isOk: true,
+            classA: 'classA',
+            classB: 'classB',
+            red: 'red',
+            font: '24px',
+            styleObject: {color: 'red', fontSize: '18px'},
+            msg1: 'helloWorld'
+        },
+        mounted:function () {
+
+        },
+        methods:{
+            tabClick:function (e) {
+                this.tabActive = e.target.dataset.current
+            },
+            Say:function (parameter) {
+                alert(parameter)
+            }
+        },
+
+    })
+</script>
